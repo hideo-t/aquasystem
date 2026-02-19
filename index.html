@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AQUA SYSTEM SJ-100｜非常用浄水器 - Navy Fields</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0b1a2e;
+  --navy-mid: #132d4f;
+  --ocean: #1a4a7a;
+  --cyan: #00b4d8;
+  --cyan-light: #90e0ef;
+  --white: #f0f6fc;
+  --off-white: #c8ddf0;
+  --gold: #e8a838;
+  --red: #d64045;
+  --glass: rgba(255,255,255,0.05);
+  --glass-border: rgba(200,220,240,0.08);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;line-height:1.85;}
+
+/* ===== Animated BG ===== */
+.bg-anim{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.bg-anim::before,.bg-anim::after{content:'';position:absolute;width:180%;height:180%;top:-40%;left:-40%;border-radius:42%;opacity:0.025;}
+.bg-anim::before{background:radial-gradient(ellipse,var(--cyan),transparent 70%);animation:spin 20s linear infinite;}
+.bg-anim::after{background:radial-gradient(ellipse,var(--cyan-light),transparent 70%);animation:spin 28s linear infinite reverse;}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+.bubble{position:absolute;width:6px;height:6px;background:var(--cyan);border-radius:50%;opacity:0;animation:rise 10s ease-in-out infinite;}
+@keyframes rise{0%{opacity:0;transform:translateY(100vh) scale(0)}8%{opacity:0.5}92%{opacity:0.4}100%{opacity:0;transform:translateY(-5vh) scale(1)}}
+
+/* ===== Nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0.9rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:all .4s;}
+nav.scrolled{background:rgba(11,26,46,0.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(0,180,216,0.1);}
+.nav-brand{display:flex;align-items:center;gap:0.6rem;text-decoration:none;}
+.nav-brand-text{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--cyan);letter-spacing:1px;}
+.nav-brand-sub{font-size:0.6rem;color:var(--off-white);letter-spacing:2px;font-weight:500;}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{color:var(--off-white);text-decoration:none;font-size:0.8rem;font-weight:500;letter-spacing:1px;transition:color .3s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--cyan);transition:width .3s;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-links a:hover::after{width:100%;}
+
+/* ===== Hero ===== */
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:2rem;overflow:hidden;}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%;}
+.hero-text{animation:fadeUp 1.2s ease-out;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:translateY(0)}}
+
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.35rem 1rem;border:1px solid var(--red);color:var(--red);font-size:0.7rem;font-weight:700;letter-spacing:2px;border-radius:50px;margin-bottom:1.5rem;animation:pulse 2.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(214,64,69,0.25)}50%{box-shadow:0 0 18px rgba(214,64,69,0.12)}}
+.badge-dot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:blink 1.5s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.hero h1{font-size:clamp(2rem,4.5vw,3.5rem);font-weight:900;line-height:1.25;margin-bottom:1.2rem;}
+.hero .hl{background:linear-gradient(135deg,var(--cyan),var(--cyan-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-desc{font-size:1rem;color:var(--off-white);font-weight:300;margin-bottom:2rem;max-width:480px;}
+.hero-price{display:flex;align-items:baseline;gap:0.8rem;margin-bottom:2rem;}
+.hero-price .original{font-size:1rem;color:rgba(200,220,240,0.4);text-decoration:line-through;}
+.hero-price .sale{font-size:2.2rem;font-weight:900;color:var(--gold);}
+.hero-price .tax{font-size:0.75rem;color:var(--off-white);font-weight:400;}
+
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{display:inline-flex;align-items:center;gap:0.6rem;padding:0.9rem 2.2rem;background:linear-gradient(135deg,var(--cyan),#0096c7);color:var(--navy);font-weight:700;font-size:0.9rem;text-decoration:none;border-radius:50px;transition:all .4s;letter-spacing:0.5px;box-shadow:0 4px 24px rgba(0,180,216,0.25);border:none;cursor:pointer;font-family:inherit;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(0,180,216,0.4);}
+.btn-secondary{display:inline-flex;align-items:center;gap:0.6rem;padding:0.9rem 2.2rem;border:1px solid rgba(0,180,216,0.4);color:var(--cyan);font-size:0.9rem;font-weight:600;text-decoration:none;border-radius:50px;transition:all .3s;background:transparent;cursor:pointer;font-family:inherit;}
+.btn-secondary:hover{border-color:var(--cyan);background:rgba(0,180,216,0.08);}
+.btn-icon{width:18px;height:18px;}
+
+/* Hero Product Visual */
+.hero-visual{display:flex;justify-content:center;align-items:center;position:relative;animation:fadeUp 1.4s ease-out 0.2s both;}
+.product-display{position:relative;width:280px;height:400px;}
+.product-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;background:radial-gradient(circle,rgba(0,180,216,0.15),transparent 70%);border-radius:50%;animation:glowP 5s ease-in-out infinite;}
+@keyframes glowP{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.6}50%{transform:translate(-50%,-50%) scale(1.12);opacity:1}}
+.product-body{position:relative;z-index:2;width:100%;height:100%;background:linear-gradient(180deg,rgba(0,180,216,0.08),rgba(0,180,216,0.02));border:1px solid rgba(0,180,216,0.2);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;backdrop-filter:blur(8px);}
+.product-emoji{font-size:4.5rem;filter:drop-shadow(0 0 30px rgba(0,180,216,0.4));}
+.product-label{font-weight:700;font-size:0.85rem;letter-spacing:2px;color:var(--cyan);}
+.product-sub{font-size:0.72rem;color:var(--off-white);letter-spacing:1px;}
+.product-badge-noto{position:absolute;top:16px;right:-12px;z-index:3;background:linear-gradient(135deg,var(--gold),#d4942a);color:var(--navy);font-size:0.6rem;font-weight:700;padding:0.4rem 0.9rem;border-radius:20px;letter-spacing:0.5px;box-shadow:0 4px 12px rgba(232,168,56,0.3);white-space:nowrap;}
+
+/* ===== Sections ===== */
+section{position:relative;z-index:1;padding:5rem 2rem;}
+.container{max-width:1100px;margin:0 auto;}
+.sec-label{font-size:0.65rem;letter-spacing:4px;color:var(--cyan);font-weight:700;text-transform:uppercase;margin-bottom:0.8rem;}
+.sec-title{font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:900;line-height:1.3;margin-bottom:1.2rem;}
+.sec-desc{font-size:0.95rem;color:var(--off-white);font-weight:300;max-width:580px;}
+
+.reveal{opacity:0;transform:translateY(24px);transition:all .7s cubic-bezier(.16,1,.3,1);}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+/* ===== Noto Section ===== */
+.noto-banner{background:linear-gradient(135deg,rgba(232,168,56,0.06),rgba(214,64,69,0.04));border:1px solid rgba(232,168,56,0.12);border-radius:16px;padding:2rem 2.5rem;margin-bottom:5rem;display:flex;align-items:center;gap:2rem;}
+.noto-icon{font-size:2.5rem;flex-shrink:0;}
+.noto-text h3{font-size:1.05rem;font-weight:700;margin-bottom:0.4rem;color:var(--gold);}
+.noto-text p{font-size:0.85rem;color:var(--off-white);font-weight:300;}
+
+/* ===== Crisis ===== */
+.crisis{background:linear-gradient(180deg,transparent,rgba(214,64,69,0.03),transparent);}
+.crisis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem;margin-top:2.5rem;}
+.crisis-card{background:var(--glass);border:1px solid rgba(214,64,69,0.12);border-radius:14px;padding:1.8rem;transition:all .4s;position:relative;overflow:hidden;}
+.crisis-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--red),var(--gold));}
+.crisis-card:hover{transform:translateY(-3px);border-color:rgba(214,64,69,0.25);box-shadow:0 10px 32px rgba(214,64,69,0.06);}
+.crisis-card .icon{font-size:2rem;margin-bottom:0.8rem;}
+.crisis-card h3{font-size:1.05rem;font-weight:700;margin-bottom:0.4rem;}
+.crisis-card p{font-size:0.83rem;color:var(--off-white);font-weight:300;}
+
+/* ===== Features ===== */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem;}
+.feat{background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;padding:1.8rem;transition:all .35s;}
+.feat:hover{border-color:rgba(0,180,216,0.2);transform:translateY(-2px);}
+.feat-header{display:flex;align-items:center;gap:1rem;margin-bottom:0.8rem;}
+.feat-icon{width:44px;height:44px;background:linear-gradient(135deg,rgba(0,180,216,0.12),rgba(0,180,216,0.04));border:1px solid rgba(0,180,216,0.18);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.feat h4{font-size:0.95rem;font-weight:700;}
+.feat p{font-size:0.83rem;color:var(--off-white);font-weight:300;}
+
+/* ===== How It Works ===== */
+.how{text-align:center;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem;position:relative;}
+.steps::before{content:'';position:absolute;top:44px;left:14%;right:14%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--cyan),transparent);opacity:0.15;}
+.step{position:relative;padding:1.5rem 0.8rem;}
+.step-n{width:50px;height:50px;margin:0 auto 1.2rem;background:linear-gradient(135deg,var(--cyan),#0096c7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.2rem;font-weight:700;color:var(--navy);position:relative;z-index:2;}
+.step h4{font-size:0.9rem;font-weight:700;margin-bottom:0.4rem;}
+.step p{font-size:0.78rem;color:var(--off-white);font-weight:300;}
+
+/* ===== Specs ===== */
+.specs{background:linear-gradient(180deg,transparent,rgba(0,180,216,0.02),transparent);}
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;margin-top:2.5rem;}
+.spec{background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;padding:1.5rem;text-align:center;transition:all .3s;}
+.spec:hover{border-color:rgba(0,180,216,0.2);transform:translateY(-2px);}
+.spec-val{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--cyan);}
+.spec-unit{font-size:0.85rem;color:var(--cyan-light);font-family:'Noto Sans JP';}
+.spec-name{font-size:0.75rem;color:var(--off-white);letter-spacing:1px;margin-top:0.3rem;}
+
+/* ===== Comparison ===== */
+.compare{text-align:center;}
+.compare-table{width:100%;margin-top:2.5rem;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:14px;border:1px solid var(--glass-border);}
+.compare-table th,.compare-table td{padding:1rem 0.8rem;text-align:center;font-size:0.82rem;border-bottom:1px solid var(--glass-border);}
+.compare-table thead th{background:rgba(0,180,216,0.08);color:var(--cyan);font-weight:700;font-size:0.75rem;letter-spacing:1px;}
+.compare-table thead th:first-child{text-align:left;padding-left:1.5rem;}
+.compare-table tbody td:first-child{text-align:left;padding-left:1.5rem;font-weight:600;font-size:0.85rem;}
+.compare-table tbody tr:last-child td{border-bottom:none;}
+.compare-table .highlight-col{background:rgba(0,180,216,0.04);}
+.compare-table .highlight-col-head{background:linear-gradient(135deg,rgba(0,180,216,0.15),rgba(0,180,216,0.08));color:var(--white);font-size:0.85rem !important;}
+.check{color:var(--cyan);font-weight:700;}
+.cross{color:rgba(200,220,240,0.3);}
+.compare-note{font-size:0.72rem;color:rgba(200,220,240,0.4);margin-top:1rem;text-align:center;}
+
+/* ===== Testimonials ===== */
+.testi{text-align:center;}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem;margin-top:2.5rem;}
+.testi-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;padding:1.8rem;text-align:left;transition:all .3s;}
+.testi-card:hover{border-color:rgba(0,180,216,0.12);}
+.testi-quote{font-size:0.85rem;font-weight:300;line-height:1.9;margin-bottom:1.3rem;padding-left:1rem;border-left:2px solid var(--cyan);}
+.testi-author{display:flex;align-items:center;gap:0.7rem;}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--ocean),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;}
+.testi-name{font-size:0.8rem;font-weight:700;}
+.testi-role{font-size:0.68rem;color:var(--off-white);}
+.testi-stars{color:var(--gold);font-size:0.75rem;margin-bottom:0.8rem;}
+
+/* ===== CTA ===== */
+.cta-section{text-align:center;padding:6rem 2rem;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(0,180,216,0.06),transparent 70%);border-radius:50%;}
+.cta-section h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;margin-bottom:1rem;position:relative;}
+.cta-section .desc{font-size:1rem;color:var(--off-white);font-weight:300;margin-bottom:1rem;position:relative;}
+.cta-price{font-size:0.9rem;color:var(--off-white);margin-bottom:2rem;position:relative;}
+.cta-price .original{text-decoration:line-through;color:rgba(200,220,240,0.4);}
+.cta-price .sale{font-size:1.8rem;font-weight:900;color:var(--gold);}
+.cta-buttons{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;position:relative;}
+
+.amazon-btn{display:inline-flex;align-items:center;gap:0.6rem;padding:0.9rem 2rem;background:linear-gradient(135deg,#ff9900,#e88a00);color:#111;font-weight:700;font-size:0.9rem;text-decoration:none;border-radius:50px;transition:all .3s;letter-spacing:0.5px;}
+.amazon-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,153,0,0.3);}
+.rakuten-btn{display:inline-flex;align-items:center;gap:0.6rem;padding:0.9rem 2rem;background:linear-gradient(135deg,#bf0000,#a00000);color:white;font-weight:700;font-size:0.9rem;text-decoration:none;border-radius:50px;transition:all .3s;letter-spacing:0.5px;}
+.rakuten-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(191,0,0,0.3);}
+
+/* ===== Footer ===== */
+footer{position:relative;z-index:1;border-top:1px solid var(--glass-border);padding:2.5rem 2rem;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--cyan);}
+.footer-links{display:flex;gap:1.5rem;list-style:none;}
+.footer-links a{color:var(--off-white);text-decoration:none;font-size:0.75rem;transition:color .3s;}
+.footer-links a:hover{color:var(--cyan);}
+.footer-copy{font-size:0.68rem;color:rgba(200,220,240,0.3);width:100%;text-align:center;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(200,220,240,0.04);}
+
+/* ===== Responsive ===== */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;text-align:center;}
+  .hero-desc{margin:0 auto 2rem;}
+  .hero-btns{justify-content:center;}
+  .hero-visual{order:-1;}
+  .product-display{width:200px;height:300px;}
+  .noto-banner{flex-direction:column;text-align:center;}
+  .nav-links{display:none;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .steps::before{display:none;}
+  .compare-table{font-size:0.72rem;}
+  .compare-table th,.compare-table td{padding:0.6rem 0.4rem;}
+}
+@media(max-width:480px){
+  .steps{grid-template-columns:1fr;}
+  .hero-price .sale{font-size:1.8rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-anim" id="bgAnim"></div>
+
+<!-- Nav -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <div>
+      <div class="nav-brand-text">AQUA SYSTEM</div>
+      <div class="nav-brand-sub">by Navy Fields</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#why">なぜ必要か</a></li>
+    <li><a href="#features">特長</a></li>
+    <li><a href="#compare">比較</a></li>
+    <li><a href="#voice">お客様の声</a></li>
+    <li><a href="#buy">購入</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge"><span class="badge-dot"></span>能登半島地震で実際に活躍</div>
+      <h1>水道が止まっても、<br><span class="hl">飲み水は止めない。</span></h1>
+      <p class="hero-desc">
+        電源不要・水を注ぐだけ。川の水も雨水も池の水も、<br>
+        3段階ろ過で安全な飲料水に変える置き型浄水器。<br>
+        PFAS/PFOA/PFOSも除去対応。
+      </p>
+      <div class="hero-price">
+        <span class="original">¥39,800</span>
+        <span class="sale">¥24,500</span>
+        <span class="tax">（税込・送料無料）</span>
+      </div>
+      <div class="hero-btns">
+        <a href="https://www.amazon.co.jp/dp/B0CKXN6PF9" class="btn-primary" target="_blank">
+          Amazonで購入
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#features" class="btn-secondary">詳しく見る ↓</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="product-display">
+        <div class="product-glow"></div>
+        <div class="product-badge-noto">🏆 能登半島地震で実用</div>
+        <div class="product-body">
+          <div class="product-emoji">💧</div>
+          <div class="product-label">AQUA SYSTEM</div>
+          <div class="product-sub">SJ-100｜置き型浄水器</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Noto Banner -->
+<div style="position:relative;z-index:1;padding:0 2rem;">
+  <div class="container">
+    <div class="noto-banner reveal">
+      <div class="noto-icon">🚨</div>
+      <div class="noto-text">
+        <h3>能登半島地震（2024年1月）で実際に使用されました</h3>
+        <p>断水が長期化した被災地で、雨水・川の水・井戸の水をAQUA SYSTEMで浄水し、飲料水・生活用水として活用。テレビ番組「J:COM ニッポン全国お買い物ジャーニー」でも紹介された実績ある製品です。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Why -->
+<section class="crisis" id="why">
+  <div class="container">
+    <div class="sec-label reveal">WHY YOU NEED THIS</div>
+    <h2 class="sec-title reveal">ペットボトルの備蓄だけで、<br>本当に足りますか？</h2>
+    <p class="sec-desc reveal">1人1日3L × 7日分 = 21L。4人家族なら84L——しかし大規模災害では数週間〜数ヶ月の断水も。</p>
+    <div class="crisis-grid">
+      <div class="crisis-card reveal">
+        <div class="icon">🌊</div>
+        <h3>南海トラフ巨大地震</h3>
+        <p>想定死者数32万人超。広域で長期にわたる断水が予測されています。備蓄水では到底足りません。</p>
+      </div>
+      <div class="crisis-card reveal">
+        <div class="icon">🚰</div>
+        <h3>水道復旧に数ヶ月</h3>
+        <p>能登半島地震では水道復旧に数ヶ月を要しました。給水車の行列に並ぶ日々が現実に起きています。</p>
+      </div>
+      <div class="crisis-card reveal">
+        <div class="icon">📦</div>
+        <h3>備蓄スペースの限界</h3>
+        <p>2Lペットボトル450本分の浄水能力を、直径24cm×高さ48cmのコンパクトサイズに凝縮。備蓄スペースを大幅に削減。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features">
+  <div class="container">
+    <div class="sec-label reveal">FEATURES</div>
+    <h2 class="sec-title reveal">AQUA SYSTEM SJ-100の特長</h2>
+    <p class="sec-desc reveal">日常使いから非常時まで。シンプルな構造に、確かなろ過力を詰め込みました。</p>
+    <div class="features-grid">
+      <div class="feat reveal">
+        <div class="feat-header">
+          <div class="feat-icon">🛡️</div>
+          <h4>3段階ろ過システム</h4>
+        </div>
+        <p>①セラミックフィルター（0.2μm）で微生物・土泥を除去 → ②活性炭+ゼオライト+カオリン+珪砂の4層で有害物質・色素・臭いを吸着 → ③ミネラルストーン+シルバーストーンで美味しい水に。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="feat-header">
+          <div class="feat-icon">⚡</div>
+          <h4>完全電源不要</h4>
+        </div>
+        <p>上部に水を注ぐだけで、重力ろ過により自動で浄水。電気もポンプも不要なので、停電時でも問題なく使用できます。インフラが全て止まっても安心。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="feat-header">
+          <div class="feat-icon">🧪</div>
+          <h4>PFAS/PFOA/PFOS除去</h4>
+        </div>
+        <p>いま話題の有機フッ素化合物（PFAS）を除去可能。水道水の安全性が気になる日常使いにも最適です。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="feat-header">
+          <div class="feat-icon">🏔️</div>
+          <h4>あらゆる水源に対応</h4>
+        </div>
+        <p>水道水はもちろん、川の水、池の水、雨水、井戸水、エコキュートの貯水タンク水まで。ほとんどの淡水を飲料水に変換します。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="feat-header">
+          <div class="feat-icon">🚰</div>
+          <h4>プッシュ式蛇口</h4>
+        </div>
+        <p>下部タンクの蛇口から、コップやグラスに直接注げます。ウォーターサーバー感覚で毎日使えるデザイン。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="feat-header">
+          <div class="feat-icon">🔧</div>
+          <h4>メンテナンス簡単</h4>
+        </div>
+        <p>分解して水洗い可能。セラミックフィルターは珪藻土製でやすりで磨けば再生。活性炭フィルターは約6ヶ月ごとに交換（約900L生成可能）。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="how">
+  <div class="container">
+    <div class="sec-label reveal">HOW IT WORKS</div>
+    <h2 class="sec-title reveal" style="max-width:100%;text-align:center;">注ぐだけ。たった4ステップ。</h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-n">1</div>
+        <h4>フタを開けて注水</h4>
+        <p>上部のフタを外し、水源から水を注ぎます。水道水・雨水・川の水何でもOK。</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-n">2</div>
+        <h4>自動でろ過開始</h4>
+        <p>重力の力で水がフィルターを通過。電源もポンプ操作も一切不要です。</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-n">3</div>
+        <h4>3段階で浄化</h4>
+        <p>セラミック→活性炭→ミネラルストーンで不純物除去＆ミネラル付加。</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-n">4</div>
+        <h4>蛇口から注いで完成</h4>
+        <p>プッシュ式蛇口からコップに直接。安全でミネラル豊富な飲料水の出来上がり。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Specs -->
+<section class="specs">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="sec-label reveal">SPECIFICATIONS</div>
+      <h2 class="sec-title reveal" style="max-width:100%;">製品スペック</h2>
+    </div>
+    <div class="spec-grid">
+      <div class="spec reveal">
+        <div class="spec-val">φ24<span class="spec-unit">cm</span></div>
+        <div class="spec-name">直径</div>
+      </div>
+      <div class="spec reveal">
+        <div class="spec-val">48<span class="spec-unit">cm</span></div>
+        <div class="spec-name">高さ</div>
+      </div>
+      <div class="spec reveal">
+        <div class="spec-val">3.2<span class="spec-unit">kg</span></div>
+        <div class="spec-name">重量</div>
+      </div>
+      <div class="spec reveal">
+        <div class="spec-val">2<span class="spec-unit">L</span></div>
+        <div class="spec-name">ろ過水容量</div>
+      </div>
+      <div class="spec reveal">
+        <div class="spec-val">5<span class="spec-unit">L</span></div>
+        <div class="spec-name">全容量（上下タンク合計）</div>
+      </div>
+      <div class="spec reveal">
+        <div class="spec-val">0.2<span class="spec-unit">μm</span></div>
+        <div class="spec-name">セラミック孔径</div>
+      </div>
+      <div class="spec reveal">
+        <div class="spec-val">900<span class="spec-unit">L</span></div>
+        <div class="spec-name">活性炭フィルター寿命</div>
+      </div>
+      <div class="spec reveal">
+        <div class="spec-val">0<span class="spec-unit">W</span></div>
+        <div class="spec-name">必要電力</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section class="compare" id="compare">
+  <div class="container">
+    <div class="sec-label reveal">COMPARISON</div>
+    <h2 class="sec-title reveal" style="max-width:100%;">他の非常用浄水器との比較</h2>
+    <p class="sec-desc reveal" style="text-align:center;margin:0 auto 0.5rem;">携帯型の手軽さ × 据え置き型の安心感。両方のいいとこ取り。</p>
+    <div style="overflow-x:auto;" class="reveal">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="highlight-col-head">AQUA SYSTEM<br>SJ-100</th>
+            <th>携帯型<br>（ストロー/ボトル）</th>
+            <th>携帯型<br>（重力式）</th>
+            <th>据え置き型<br>（大型ポンプ）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>電源</td>
+            <td class="highlight-col"><span class="check">不要 ✓</span></td>
+            <td><span class="check">不要 ✓</span></td>
+            <td><span class="check">不要 ✓</span></td>
+            <td>機種による</td>
+          </tr>
+          <tr>
+            <td>操作の手間</td>
+            <td class="highlight-col"><span class="check">注ぐだけ</span></td>
+            <td>吸引が必要</td>
+            <td>吊り下げが必要</td>
+            <td>ポンプ操作</td>
+          </tr>
+          <tr>
+            <td>家族利用</td>
+            <td class="highlight-col"><span class="check">◎ 適</span></td>
+            <td>△ 1人用</td>
+            <td>○ 可</td>
+            <td><span class="check">◎ 適</span></td>
+          </tr>
+          <tr>
+            <td>日常使い</td>
+            <td class="highlight-col"><span class="check">◎ 毎日使える</span></td>
+            <td><span class="cross">× 非常時のみ</span></td>
+            <td><span class="cross">× アウトドア向き</span></td>
+            <td>△ 大きすぎる</td>
+          </tr>
+          <tr>
+            <td>PFAS除去</td>
+            <td class="highlight-col"><span class="check">対応 ✓</span></td>
+            <td>機種による</td>
+            <td>機種による</td>
+            <td>機種による</td>
+          </tr>
+          <tr>
+            <td>ミネラル付加</td>
+            <td class="highlight-col"><span class="check">40種類+ ✓</span></td>
+            <td><span class="cross">×</span></td>
+            <td><span class="cross">×</span></td>
+            <td><span class="cross">×</span></td>
+          </tr>
+          <tr>
+            <td>持ち運び</td>
+            <td class="highlight-col">○ 3.2kg</td>
+            <td><span class="check">◎ 超軽量</span></td>
+            <td>○ 軽量</td>
+            <td><span class="cross">× 重い</span></td>
+          </tr>
+          <tr>
+            <td>価格帯</td>
+            <td class="highlight-col"><span class="check">¥24,500</span></td>
+            <td>¥3,000〜</td>
+            <td>¥8,000〜</td>
+            <td>¥50,000〜</td>
+          </tr>
+          <tr>
+            <td>代表製品</td>
+            <td class="highlight-col" style="font-weight:700;">本製品</td>
+            <td style="font-size:0.75rem;">ソーヤーミニ<br>セイシェル</td>
+            <td style="font-size:0.75rem;">カタダイン<br>ビーフリー</td>
+            <td style="font-size:0.75rem;">業務用<br>RO膜タイプ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="compare-note">※ 海水の淡水化には対応していません。各製品の仕様は変更される場合があります。</p>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testi" id="voice">
+  <div class="container">
+    <div class="sec-label reveal">CUSTOMER VOICES</div>
+    <h2 class="sec-title reveal" style="max-width:100%;">購入者レビュー</h2>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">
+          非常用にペットボトルの水を備蓄していましたが、最終的には川の水を利用することになると思い購入。日常でも使える上、非常時に川や湖の水も浄水できる理想の商品です。電源不要なのでインフラが止まっても安心。
+        </div>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div>
+            <div class="testi-name">Amazonカスタマー</div>
+            <div class="testi-role">★★★★★ 購入済み</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">
+          防災用として購入。思ったよりコンパクトで良かったです。電源が不要という点、水質基準をしっかりクリアしてる点、シンプルな構造で機械音痴な私でも使いこなせそうです。これで水への不安がだいぶ減りました。
+        </div>
+        <div class="testi-author">
+          <div class="testi-avatar">B</div>
+          <div>
+            <div class="testi-name">楽天カスタマー</div>
+            <div class="testi-role">★★★★★ 防災用として</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">
+          災害に備えてリピート購入です。電動浄水器も購入していますが、万が一の場合安心なので。ミネラルまで考えられており良いと思います。箱は意外と小さいです。コンパクトで助かります。
+        </div>
+        <div class="testi-author">
+          <div class="testi-avatar">C</div>
+          <div>
+            <div class="testi-name">リピーター</div>
+            <div class="testi-role">★★★★★ 2台目を検討中</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="buy">
+  <h2 class="reveal">その日は、<span class="hl">突然</span>やってくる。</h2>
+  <p class="desc reveal">備えるなら、今。AQUA SYSTEMで「水の安心」を手に入れませんか。</p>
+  <div class="cta-price reveal">
+    <span class="original">¥39,800</span> → <span class="sale">¥24,500</span><span class="tax">（税込・送料無料）</span>
+  </div>
+  <div class="cta-buttons reveal">
+    <a href="https://www.amazon.co.jp/dp/B0CKXN6PF9" class="amazon-btn" target="_blank">
+      🛒 Amazonで購入
+    </a>
+    <a href="https://item.rakuten.co.jp/navyfieldsllc/aqua001-pr/" class="rakuten-btn" target="_blank">
+      🛍️ 楽天で購入
+    </a>
+    <a href="https://www.navyfields.info/product-page/aqualine-%E9%9B%BB%E6%BA%90%E3%83%AC%E3%82%B9%E6%B5%84%E6%B0%B4%E5%99%A8" class="btn-primary" target="_blank">
+      公式サイトで購入
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">AQUA SYSTEM by Navy Fields</div>
+    <ul class="footer-links">
+      <li><a href="https://www.navyfields.info/" target="_blank">公式サイト</a></li>
+      <li><a href="https://www.navyfields.info/よくある質問" target="_blank">FAQ</a></li>
+      <li><a href="https://www.navyfields.info/特定商取引法に基づく表記-例" target="_blank">特定商取引法</a></li>
+      <li><a href="https://www.navyfields.info/顧客相談-お問い合わせ" target="_blank">お問い合わせ</a></li>
+    </ul>
+    <div class="footer-copy">
+      ※ 当サイトは販売促進を目的としたページです。製品の詳細は公式サイトをご確認ください。<br>
+      © Navy Fields LLC. 電話：0248-21-9348（営業時間 10:00-18:00）
+    </div>
+  </div>
+</footer>
+
+<script>
+// Bubbles
+const bg=document.getElementById('bgAnim');
+for(let i=0;i<20;i++){const b=document.createElement('div');b.className='bubble';b.style.left=Math.random()*100+'%';b.style.animationDelay=Math.random()*10+'s';b.style.animationDuration=(7+Math.random()*8)+'s';b.style.width=b.style.height=(2+Math.random()*5)+'px';bg.appendChild(b);}
+
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50));
+
+// Reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*60);obs.unobserve(e.target);}});
+},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});
+});
+</script>
+</body>
+</html>
